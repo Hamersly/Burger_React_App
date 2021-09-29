@@ -1,9 +1,13 @@
 import React from "react";
+import AddBurgerForm from "./AddBurgerForm";
 
 class MenuAdmin extends React.Component{
 	render(){
 		return(
-			<h2>AdmiKa</h2>
+			<div className='menu-admin'>
+				<h2>Управление меню</h2>
+				<AddBurgerForm addBurger={this.props.addBurger}/>
+			</div>
 		)
 	}
 }
