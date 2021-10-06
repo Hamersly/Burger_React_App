@@ -6,7 +6,7 @@ class Burger extends React.Component{
 		const isAvailable = status === 'available';
 		return(
 			<li className='menu-burger'>
-				<div clasName='image-container'>
+				<div className='image-container'>
 					<img src={image} alt={name}/>
 				</div>
 
