@@ -7,16 +7,25 @@ class Order extends React.Component{
 		const burger = this.props.burgers[key];
 		const count= this.props.order[key];
 		const isAvailable = burger && burger.status === 'available';
+		const transitionOptions = {
+			classNames:'order',
+			key,
+			timeout: { enter: 500, exit: 500 },
+		}; 
 		if(!burger) return null;
 		if(!isAvailable){
-			return <CSSTransition classNames='order' key={key} timeout={{enter:5000, exit: 5000}}>
+			return <CSSTransition {...transitionOptions}>
 				<li key={key} className='unavailable'>Извините, {burger ? burger.name : 'бургер'} временно недоступен.</li>
 			</CSSTransition>
 		}
-		return <CSSTransition classNames='order' key={key} timeout={{enter:5000, exit: 5000}}>
+		return <CSSTransition {...transitionOptions}>
 			<li key={key}>
 				<span>
-					<span>{count}</span>
+					<TransitionGroup component='span' className='count'>
+						<CSSTransition classNames='count' key={count} timeout={{enter: 500, exit: 500}}> 
+							<span>{count}</span>
+						</CSSTransition>
+					</TransitionGroup>
 					шт. {burger.name}
 					<span> {count * burger.price} ₽</span>
 					<button 
