@@ -5,8 +5,13 @@ import MenuAdmin from './MenuAdmin';
 import samleBurgers from '../sample-burgers';
 import Burger from './Burger';
 import base from '../base';
+import PropTypes from 'prop-types';
 
 class App extends React.Component{
+	static propTypes = {
+		match: PropTypes.object,
+	};
+
 	state = {
 		burgers: {},
 		order: {},
