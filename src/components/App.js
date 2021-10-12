@@ -5,6 +5,8 @@ import MenuAdmin from './MenuAdmin';
 import samleBurgers from '../sample-burgers';
 import Burger from './Burger';
 import base from '../base';
+import firebase from 'firebase/app';
+import SignIn from './Auth/SignIn';
 import PropTypes from 'prop-types';
 
 class App extends React.Component{
@@ -88,32 +90,40 @@ class App extends React.Component{
 		this.setState({order});
 	};
 
+	hendleLogout = async () => {
+		await firebase.auth().signOut();
+		window.location.reload();
+	}
+
 	render(){
 		return(
-			<div className='burger-paradise'>
-				<div className='menu'>
-					<Header title="Very hot burger" amount={10} hot={true}/>
-					<ul className='burgers'>
-						{Object.keys(this.state.burgers).map(key => {
-							return <Burger 
-								key={key}
-								index={key}
-								addToOrder={this.addToOrder}
-								details={this.state.burgers[key]}/>
-						})}
-					</ul>
+			<SignIn>
+				<div className='burger-paradise'>
+					<div className='menu'>
+						<Header title="Very hot burger" amount={10} hot={true}/>
+						<ul className='burgers'>
+							{Object.keys(this.state.burgers).map(key => {
+								return <Burger 
+									key={key}
+									index={key}
+									addToOrder={this.addToOrder}
+									details={this.state.burgers[key]}/>
+							})}
+						</ul>
+					</div>
+					<Order 
+						burgers={this.state.burgers} 
+						order={this.state.order}
+						deleteFromOrder={this.deleteFromOrder}/>
+					<MenuAdmin 
+						addBurger={this.addBurger} 
+						loadSamleBurgers={this.loadSamleBurgers}
+						burgers={this.state.burgers}
+						updateBurger={this.updateBurger}
+						deleteBurger={this.deleteBurger}
+						hendleLogout={this.hendleLogout}/>
 				</div>
-				<Order 
-					burgers={this.state.burgers} 
-					order={this.state.order}
-					deleteFromOrder={this.deleteFromOrder}/>
-				<MenuAdmin 
-					addBurger={this.addBurger} 
-					loadSamleBurgers={this.loadSamleBurgers}
-					burgers={this.state.burgers}
-					updateBurger={this.updateBurger}
-					deleteBurger={this.deleteBurger}/>
-			</div>
+			</SignIn>
 		)
 	};
 };

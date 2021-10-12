@@ -1,7 +1,8 @@
 import Rebase from 're-base';
 import firebase from 'firebase/app';
 import {pass} from './passBase';
-require('firebase/database');
+import 'firebase/database';
+import 'firebase/auth'
 
 const firebaseApp = firebase.initializeApp({
 	apiKey: pass.apiKey,
