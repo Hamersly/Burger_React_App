@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
-class Burger extends React.Component{
 
+class Burger extends React.Component{
 	static propTypes = {
 		details: PropTypes.shape({
 			image: PropTypes.string,
